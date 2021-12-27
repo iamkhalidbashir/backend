@@ -171,6 +171,8 @@ async fn check_email(body: EndpointRequest) -> Result<impl warp::Reply, warp::Re
 /// Create the `POST /check_email` endpoint.
 pub fn post_check_email() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone
 {
+	let cors = warp::cors()
+		.allow_any_origin()
 	warp::path!("v0" / "check_email")
 		.and(warp::post())
 		.or(warp::options())
@@ -182,4 +184,5 @@ pub fn post_check_email() -> impl Filter<Extract = impl warp::Reply, Error = war
 		.and_then(check_email)
 		// View access logs by setting `RUST_LOG=reacher`.
 		.with(warp::log("reacher"))
+		.with(cors)
 }

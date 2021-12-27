@@ -21,12 +21,7 @@ use super::errors;
 use warp::Filter;
 
 pub fn create_routes() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone {
-
-	let cors = warp::cors()
-		.allow_any_origin()
-
 	version::get::get_version()
 		.or(check_email::post::post_check_email())
 		.recover(errors::handle_rejection)
-		.with(cors)
 }
