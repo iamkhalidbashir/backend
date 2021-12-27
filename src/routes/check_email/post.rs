@@ -173,7 +173,7 @@ pub fn post_check_email() -> impl Filter<Extract = impl warp::Reply, Error = war
 {
 	warp::path!("v0" / "check_email")
 		.and(warp::post())
-		.and(warp::options())
+		.or(warp::options())
 		.and(check_header())
 		// When accepting a body, we want a JSON body (and to reject huge
 		// payloads)...
