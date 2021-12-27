@@ -172,10 +172,9 @@ async fn check_email(body: EndpointRequest) -> Result<impl warp::Reply, warp::Re
 pub fn post_check_email() -> impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone
 {
 	let cors = warp::cors()
-		.allow_any_origin()
+		.allow_any_origin();
 	warp::path!("v0" / "check_email")
 		.and(warp::post())
-		.or(warp::options())
 		.and(check_header())
 		// When accepting a body, we want a JSON body (and to reject huge
 		// payloads)...
